@@ -98,7 +98,7 @@ cam@cam-3630:/data/github/cnstream-docker-image$
 #        /root/CNStream/samples/demo/detection/mlu220/run_yolov3_mlu220.sh
 #配置文件：/root/CNStream/samples/demo/detection/mlu270/yolov3_mlu270_config.json
 #        /root/CNStream/samples/demo/detection/mlu220/yolov3_mlu220_config.json
-#推流地址：执行run_yolov3_mlu270.sh后，会把RTSP推流地址写入到本地文件RTSP_url_names.txt中。
+#结果演示：执行run_yolov3_mlu270.sh后，会把RTSP推流地址写入到本地文件RTSP_url_names.txt中。
 #        /root/CNStream/samples/demo/detection/mlu270/RTSP_url_names.txt
 ```
 
@@ -172,7 +172,7 @@ root@cam-3630:~/CNStream/samples/demo/detection/mlu270#
 #视频文件：/root/CNStream/data/videos/cars.mp4
 #启动脚本：/root/CNStream/samples/demo/run.sh
 #配置文件：/root/CNStream/samples/demo/detection_config.json
-#推流地址：执行run.sh后，会把检测的实时画面显示到屏幕上。
+#结果演示：执行run.sh后，会把检测的实时画面显示到屏幕上。
 #注意事项：1.需在GUI终端运行； 2.需设置-Dbuild_display=ON重新编译CNStream；
 #        3.需修改detection_config.json文件中字段"show"值为"true"；
 ```
