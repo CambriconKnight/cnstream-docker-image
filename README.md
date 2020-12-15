@@ -2,7 +2,7 @@
 
 Build docker images for [CNStream](https://github.com/Cambricon/CNStream).
 
-## Directory tree ##
+# Directory tree #
 
 ```bash
 .
@@ -13,7 +13,7 @@ Build docker images for [CNStream](https://github.com/Cambricon/CNStream).
 └── run-container-cnstream.sh
 ```
 
-## Clone ##
+# Clone #
 ```bash
 git clone https://github.com/CambriconKnight/cnstream-docker-image.git
 ```
@@ -32,7 +32,7 @@ build-cnstream-image.sh  Dockerfile.16.04  load-image-cnstream.sh  README.md  rm
 cam@cam-3630:/data/github/cnstream-docker-image$
 ```
 
-## Build ##
+# Build #
 ```bash
 ./build-cnstream-image.sh
 ```
@@ -72,24 +72,26 @@ Successfully tagged ubuntu16.04_cnstream:v1.5.0
 cam@cam-3630:/data/github/cnstream-docker-image$
 ```
 
-## Load ##
+# Load #
 ```bash
 #加载Docker镜像
 ./load-image-cnstream.sh
 ```
 
-## Run ##
+# Run #
 ```bash
 #启动Docker容器
 ./run-container-cnstream.sh
 ```
 
-## Test ##
+# Test #
+## YOLOv3 ##
 ```bash
 #硬件平台：MLU270、MLU220-M.2
 #软件环境：Docker（ubuntu16.04_cnstream-v1.5.0.tar.gz）
 #运行实例：基于CNStream的YOLOv3运行实例
 #业务流程：读取视频文件 --> MLU硬件解码 --> MLU硬件推理 --> 叠加OSD信息 --> RTSP推流输出
+#所用插件：DataSource；Inferencer；Osd；RtspSink
 #离线模型：http://video.cambricon.com/models/MLU270/yolov3/yolov3_offline_u4_v1.3.0.cambricon
 #启动脚本：/root/CNStream/samples/demo/detection/mlu270/run_yolov3_mlu270.sh
 #        /root/CNStream/samples/demo/detection/mlu220/run_yolov3_mlu220.sh
@@ -118,9 +120,11 @@ Saving to: 'yolov3_offline_u4_v1.3.0.cambricon'
 yolov3_offline_u4_v1.3.0.cambricon                 100%[================================================================================================================>]  94.08M  2.25MB/s    in 45s
 2020-12-15 14:25:28 (2.07 MB/s) - 'yolov3_offline_u4_v1.3.0.cambricon' saved [98652692/98652692]
 --2020-12-15 14:25:28--  http://video.cambricon.com/models/MLU270/yolov3/label_map_coco.txt
+
 ......
 ......
 ......
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ===================================[ osd Performance ]==========================================
 [stream id] stream_0  -- [latency] avg:    4.3ms, min:    0.9ms, max:   33.6ms, [frame count]: 1784
@@ -154,4 +158,89 @@ WARNING: Logging before InitCNStreamLogging() is written to STDERR
 CNSTREAM CORE I1215 14:26:30.512708 27887] [MyPipeline] stop updating stream message
 I1215 14:26:30.513303 27883 mlu_context.cpp:82] Cambricon runtime destroy
 root@cam-3630:~/CNStream/samples/demo/detection/mlu270#
+```
+
+## SSD ##
+```bash
+#硬件平台：MLU270
+#软件环境：Docker（ubuntu16.04_cnstream-v1.5.0.tar.gz）
+#运行实例：基于CNStream的SSD运行实例
+#业务流程：读取视频文件 --> MLU硬件解码 --> MLU硬件推理 --> 叠加OSD信息 --> 本地显示（带有GUI界面）
+#所用插件：DataSource；Inferencer；Osd；Displayer
+#离线模型：http://video.cambricon.com/models/MLU270/Primary_Detector/ssd/resnet34_ssd.cambricon
+#启动脚本：/root/CNStream//samples/demo/run.sh
+#配置文件：/root/CNStream/samples/demo/detection_config.json
+#推流地址：执行run.sh后，会把检测的实时画面显示到屏幕上。
+#注意事项：1.需在GUI终端运行； 2.需设置-Dbuild_display=ON重新编译CNStream；
+#        3.需修改detection_config.json文件中字段"show"值为"true"；
+```
+
+推理结果摘选：
+<table>
+    <tr>
+        <td ><center><img alt="ssd.gif" src="./res/ssd.gif" height="250" </center></td>
+    </tr>
+</table>
+
+```bash
+#1.请确保在GUI终端运行
+cd /root/CNStream/build
+#2.设置-Dbuild_display=ON重新编译CNStream
+cmake -Dbuild_display=ON ../
+cd /root/CNStream/samples/demo
+#3.修改detection_config.json文件中字段"show"值为"true"；
+vim detection_config.json
+#运行实例
+./run.sh
+```
+
+```bash
+root@cam-3630:~/CNStream/samples/demo# ./run.sh
+~/CNStream/data/models/MLU270/Primary_Detector/ssd ~/CNStream/samples/demo
+resnet34_ssd.cambricon offline model exists.
+label_voc.txt exists.
+~/CNStream/samples/demo
+/root/CNStream/samples/demo
+CNRT: 4.6.0 e158c88
+Register object named [PreprocYolov3]
+Register object named [PreprocCpu]
+Register object named [ObjPreprocCpu]
+Register object named [PostprocSsd]
+Register object named [PostprocYolov3]
+Register object named [PostprocFakeYolov3]
+Register object named [PostprocClassification]
+Register object named [ObjPostprocClassification]
+Register object named [CarFilter]
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+I1215 15:46:50.022884 23753 demo.cpp:328] CNSTREAM VERSION:v5.3.0
+CNSTREAM CORE I1215 15:46:50.023119 23753] Add Module source to pipeline
+CNSTREAM CORE I1215 15:46:50.023214 23753] Add Module detector to pipeline
+CNSTREAM CORE I1215 15:46:50.023227 23753] Add Module osd to pipeline
+CNSTREAM CORE I1215 15:46:50.023239 23753] Add Module displayer to pipeline
+CNSTREAM CORE I1215 15:46:50.023257 23753] Link Module osd-->displayer
+CNSTREAM CORE I1215 15:46:50.023265 23753] Link Module detector-->osd
+CNSTREAM CORE I1215 15:46:50.023269 23753] Link Module source-->detector
+CNSTREAM CORE I1215 15:46:50.023288 23753] Directory [perf_database/] exists.
+before init
+before create window
+before create texture
+I1215 15:46:50.474404 23753 mlu_context.cpp:99] Cambricon runtime init success.
+I1215 15:46:50.500952 23753 model_loader.cpp:191] Load function from offline model succeeded
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+===================================[ displayer Performance ]====================================
+......
+......
+......
+[stream id] stream_0  -- [frame count]: 1491, [processing time(s)]:  59.740551, [fps]:   25.0
+[stream id] stream_1  -- [frame count]: 1491, [processing time(s)]:  59.740547, [fps]:   25.0
+
+(* Note: Performance info of pipeline is slightly delayed compared to that of each stream.)
+Pipeline :      -- [frame count]: 2982, [processing time(s)]:  59.740566, [fps]:   50.0
+
+Total : 50.000000
+CNSTREAM CORE I1215 15:46:16.409847 20398] [MyPipeline] Stop
+WARNING: Logging before InitCNStreamLogging() is written to STDERR
+CNSTREAM CORE I1215 15:46:16.410425 20402] [MyPipeline] stop updating stream message
+I1215 15:46:16.420593 20398 mlu_context.cpp:82] Cambricon runtime destroy
+root@cam-3630:~/CNStream/samples/demo#
 ```
