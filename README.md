@@ -93,6 +93,7 @@ cam@cam-3630:/data/github/cnstream-docker-image$
 #业务流程：读取视频文件 --> MLU硬件解码 --> MLU硬件推理 --> 叠加OSD信息 --> RTSP推流输出
 #所用插件：DataSource; Inferencer; Osd; RtspSink
 #离线模型：http://video.cambricon.com/models/MLU270/yolov3/yolov3_offline_u4_v1.3.0.cambricon
+#视频文件：/root/CNStream/data/videos/cars.mp4
 #启动脚本：/root/CNStream/samples/demo/detection/mlu270/run_yolov3_mlu270.sh
 #        /root/CNStream/samples/demo/detection/mlu220/run_yolov3_mlu220.sh
 #配置文件：/root/CNStream/samples/demo/detection/mlu270/yolov3_mlu270_config.json
@@ -168,7 +169,8 @@ root@cam-3630:~/CNStream/samples/demo/detection/mlu270#
 #业务流程：读取视频文件 --> MLU硬件解码 --> MLU硬件推理 --> 叠加OSD信息 --> 本地显示（带有GUI界面）
 #所用插件：DataSource; Inferencer; Osd; Displayer
 #离线模型：http://video.cambricon.com/models/MLU270/Primary_Detector/ssd/resnet34_ssd.cambricon
-#启动脚本：/root/CNStream//samples/demo/run.sh
+#视频文件：/root/CNStream/data/videos/cars.mp4
+#启动脚本：/root/CNStream/samples/demo/run.sh
 #配置文件：/root/CNStream/samples/demo/detection_config.json
 #推流地址：执行run.sh后，会把检测的实时画面显示到屏幕上。
 #注意事项：1.需在GUI终端运行； 2.需设置-Dbuild_display=ON重新编译CNStream；
