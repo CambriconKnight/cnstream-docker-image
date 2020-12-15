@@ -13,132 +13,143 @@ Build docker images for [CNStream](https://github.com/Cambricon/CNStream).
 └── run-container-cnstream.sh
 ```
 
+## Clone ##
+```bash
+git clone https://github.com/CambriconKnight/cnstream-docker-image.git
+```
+```bash
+cam@cam-3630:/data/github$ git clone https://github.com/CambriconKnight/cnstream-docker-image.git
+Cloning into 'cnstream-docker-image'...
+remote: Enumerating objects: 14, done.
+remote: Counting objects: 100% (14/14), done.
+remote: Compressing objects: 100% (12/12), done.
+remote: Total 14 (delta 3), reused 13 (delta 2), pack-reused 0
+Unpacking objects: 100% (14/14), done.
+Checking connectivity... done.
+cam@cam-3630:/data/github$ cd cnstream-docker-image
+cam@cam-3630:/data/github/cnstream-docker-image$ ls
+build-cnstream-image.sh  Dockerfile.16.04  load-image-cnstream.sh  README.md  rm-all-docker-container.sh  run-container-cnstream.sh
+cam@cam-3630:/data/github/cnstream-docker-image$
+```
+
 ## Build ##
 ```bash
 ./build-cnstream-image.sh
 ```
 ```bash
-cam@cam-3630:/data/docker/cnstream/cnstream-docker-image$ ./build-cnstream-image.sh
+cam@cam-3630:/data/github/cnstream-docker-image$ ./build-cnstream-image.sh
 Cloning into 'cnstream'...
-remote: Enumerating objects: 271, done.
-remote: Counting objects: 100% (271/271), done.
-remote: Compressing objects: 100% (206/206), done.
-remote: Total 4208 (delta 105), reused 154 (delta 59), pack-reused 3937
-Receiving objects: 100% (4208/4208), 176.91 MiB | 324.00 KiB/s, done.
-Resolving deltas: 100% (2132/2132), done.
+remote: Enumerating objects: 1005, done.
+remote: Counting objects: 100% (1005/1005), done.
+remote: Compressing objects: 100% (684/684), done.
+remote: Total 5920 (delta 422), reused 710 (delta 292), pack-reused 4915
+Receiving objects: 100% (5920/5920), 192.19 MiB | 3.02 MiB/s, done.
+Resolving deltas: 100% (3113/3113), done.
 Checking connectivity... done.
-File(neuware-mlu270-1.4.0-1_Ubuntu16.04_amd64.deb): Not exist!
-Copy your neuware package(neuware-mlu270-1.4.0-1_Ubuntu16.04_amd64.deb) into the directory of CNStream!
-eg:cp -v /data/ftp/v1.4.0/neuware/neuware-mlu270-1.4.0-1_Ubuntu16.04_amd64.deb ./cnstream
-cam@cam-3630:/data/docker/cnstream/cnstream-docker-image$ cp -v /data/ftp/v1.4.0/neuware/neuware-mlu270-1.4.0-1_Ubuntu16.04_amd64.deb ./cnstream
-'/data/ftp/v1.4.0/neuware/neuware-mlu270-1.4.0-1_Ubuntu16.04_amd64.deb' -> './cnstream/neuware-mlu270-1.4.0-1_Ubuntu16.04_amd64.deb'
-cam@cam-3630:/data/docker/cnstream/cnstream-docker-image$ ./build-cnstream-image.sh
+File(neuware-mlu270-1.5.0-1_Ubuntu16.04_amd64.deb): Not exist!
+Copy your neuware package(neuware-mlu270-1.5.0-1_Ubuntu16.04_amd64.deb) into the directory of CNStream!
+eg:cp -v /data/ftp/v1.5.0/neuware/neuware-mlu270-1.5.0-1_Ubuntu16.04_amd64.deb ./cnstream
+cam@cam-3630:/data/github/cnstream-docker-image$ cp -v /data/ftp/v1.5.0/neuware/neuware-mlu270-1.5.0-1_Ubuntu16.04_amd64.deb ./cnstream
+'/data/ftp/v1.5.0/neuware/neuware-mlu270-1.5.0-1_Ubuntu16.04_amd64.deb' -> './cnstream/neuware-mlu270-1.5.0-1_Ubuntu16.04_amd64.deb'
+cam@cam-3630:/data/github/cnstream-docker-image$ ./build-cnstream-image.sh
 Directory(cnstream): Exists!
-File(neuware-mlu270-1.4.0-1_Ubuntu16.04_amd64.deb): Exists!
+File(neuware-mlu270-1.5.0-1_Ubuntu16.04_amd64.deb): Exists!
 ====================== build image ======================
-Sending build context to Docker daemon  137.3MB
+Sending build context to Docker daemon  159.3MB
 Step 1/11 : FROM ubuntu:16.04
-16.04: Pulling from library/ubuntu
-6aa38bd67045: Already exists
-981ae4862c05: Already exists
-5bad8949dcb1: Already exists
-ca9461589e70: Already exists
-Digest: sha256:69bc24edd22c270431d1a9e6dbf57cfc4a77b2da199462d0251b145fdd7fa538
-Status: Downloaded newer image for ubuntu:16.04
  ---> c522ac0d6194
-Step 2/11 : MAINTAINER <Cambricon, Inc.>
- ---> Running in 79adcf3cef42
-Removing intermediate container 79adcf3cef42
- ---> b00336dc9e2e
-Step 3/11 : WORKDIR /root/CNStream/
- ---> Running in 22ba062a2566
-Removing intermediate container 22ba062a2566
- ---> b3dc3724e087
-Step 4/11 : ARG neuware_package=neuware-mlu270-1.4.0-1_Ubuntu16.04_amd64.deb
- ---> Running in 67b28422fdd2
-Removing intermediate container 67b28422fdd2
- ---> 5900e5f01c41
-Step 5/11 : ARG mlu_platform=MLU270
- ---> Running in 123e64c931aa
-Removing intermediate container 123e64c931aa
- ---> 1573d22994ba
-Step 6/11 : ARG with_neuware_installed=yes
- ---> Running in ae9355203164
-Removing intermediate container ae9355203164
- ---> 1d8b9e82644a
-Step 7/11 : RUN echo -e 'nameserver 114.114.114.114' > /etc/resolv.conf
- ---> Running in c7fa9091e2b8
-Removing intermediate container c7fa9091e2b8
- ---> 3c579795437b
-Step 8/11 : RUN echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main restricted > /etc/apt/sources.list &&     echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-updates main restricted >> /etc/apt/sources.list &&     echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial universe >> /etc/apt/sources.list &&     echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-updates universe >> /etc/apt/sources.list &&     echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial multiverse >> /etc/apt/sources.list &&     echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-updates multiverse >> /etc/apt/sources.list &&     echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse >> /etc/apt/sources.list &&     echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted >> /etc/apt/sources.list &&     echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security universe >> /etc/apt/sources.list &&     echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security multiverse >> /etc/apt/sources.list &&     apt-get install --assume-yes && apt-get update --fix-missing &&     rm -rf /var/lib/apt/lists/* && mkdir /var/lib/apt/lists/partial &&     apt-get clean && apt-get update --fix-missing &&     apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends             curl git wget vim build-essential cmake make             libopencv-dev             libgoogle-glog-dev             openssh-server             libsdl2-dev              lcov              net-tools &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*
- ---> Running in 6f14dead8854
-Reading package lists...
-Building dependency tree...
-Reading state information...
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-Get:1 http://mirrors.tuna.tsinghua.edu.cn/ubuntu xenial InRelease [247 kB]
 ......
 ......
 ......
-Unpacking multiarch-support (2.23-0ubuntu11.2) over (2.23-0ubuntu11) ...
-Setting up multiarch-support (2.23-0ubuntu11.2) ...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-The following additional packages will be installed:
-  binutils bzip2 cmake-data cpp cpp-5 dpkg-dev fontconfig fontconfig-config
-  fonts-dejavu-core g++ g++-5 gcc gcc-5 gir1.2-atk-1.0 gir1.2-freedesktop
-......
-......
-......
-[ 99%] Building CXX object samples/demo/CMakeFiles/demo.dir/obj_filter/car_filter.cpp.o
-[100%] Linking CXX executable ../../../samples/bin/demo
-[100%] Built target demo
-Removing intermediate container a18fd1a29e68
- ---> d737a0ee2039
 Step 11/11 : WORKDIR /root/CNStream/samples/demo
- ---> Running in f5e95459b24c
-Removing intermediate container f5e95459b24c
- ---> b5da7e2a95f2
-Successfully built b5da7e2a95f2
-Successfully tagged ubuntu16.04_cnstream-v1.4.0:v1
+ ---> Running in 3d594d45f6b8
+Removing intermediate container 3d594d45f6b8
+ ---> 080fdb4ca3c3
+Successfully built 080fdb4ca3c3
+Successfully tagged ubuntu16.04_cnstream:v1.5.0
 ====================== save image ======================
--rw------- 1 cam cam 1268862976 7月  22 14:21 ubuntu16.04_cnstream-v1.4.0.tar
-cam@cam-3630:/data/docker/cnstream/cnstream-docker-image$
+-rw------- 1 cam cam 1351632896 12月 15 22:03 ubuntu16.04_cnstream-v1.5.0.tar.gz
+cam@cam-3630:/data/github/cnstream-docker-image$
 ```
 
 ## Load ##
-
 ```bash
-cam@cam-3630:/data/docker/cnstream/cnstream-docker-image$ ./load-cnstream-image-v1.4.sh
-0
-ubuntu16.04_cnstream-v1.4.0
-The image is not loaded and is loading......
-d908d9ad6713: Loading layer [==================================================>]  130.1MB/130.1MB
-631dfaad8559: Loading layer [==================================================>]  11.78kB/11.78kB
-968d3b985bf4: Loading layer [==================================================>]  15.87kB/15.87kB
-377c01c3f4e3: Loading layer [==================================================>]  3.072kB/3.072kB
-e5c38e1d74ba: Loading layer [==================================================>]   2.56kB/2.56kB
-baa3ba43b324: Loading layer [==================================================>]  709.2MB/709.2MB
-5a4fddfb803d: Loading layer [==================================================>]  137.3MB/137.3MB
-cc14262c927f: Loading layer [==================================================>]  292.2MB/292.2MB
-Loaded image: ubuntu16.04_cnstream-v1.4.0:v1
-====================== image information ======================
-REPOSITORY                    TAG                 IMAGE ID            CREATED             SIZE
-ubuntu16.04_cnstream-v1.4.0   v1                  ccbc900c88d7        10 minutes ago      1.25GB
-cam@cam-3630:/data/docker/cnstream/cnstream-docker-image$
+#加载Docker镜像
+./load-image-cnstream.sh
 ```
 
 ## Run ##
+```bash
+#启动Docker容器
+./run-container-cnstream.sh
+```
+
+## Test ##
+```bash
+#硬件平台：MLU270、MLU220-M.2
+#软件环境：Docker（ubuntu16.04_cnstream-v1.5.0.tar.gz）
+#运行实例：基于CNStream的YOLOv3测试Demo
+#业务流程：读取视频文件 --> MLU硬件解码 --> MLU硬件推理 --> 叠加OSD信息 --> RTSP推流输出
+#离线模型：http://video.cambricon.com/models/MLU270/yolov3/yolov3_offline_u4_v1.3.0.cambricon
+#启动脚本：/root/CNStream/samples/demo/detection/mlu270/run_yolov3_mlu270.sh
+#        /root/CNStream/samples/demo/detection/mlu220/run_yolov3_mlu220.sh
+#配置文件：/root/CNStream/samples/demo/detection/mlu270/yolov3_mlu270_config.json
+#        /root/CNStream/samples/demo/detection/mlu220/yolov3_mlu220_config.json
+```
+
+推理结果摘选：
+<table>
+    <tr>
+        <td ><center><img alt="yolov3.gif" src="./res/yolov3.gif" height="250" </center></td>
+    </tr>
+</table>
 
 ```bash
-cam@cam-3630:/data/docker/cnstream/cnstream-docker-image$ ./run-cnstream-container-v1.4.sh
-0
-ubuntu_cnstream-v1.4.0
-root@cam-3630:~/CNStream/samples/demo# exit
-exit
-cam@cam-3630:/data/docker/cnstream$ docker ps -a
-CONTAINER ID        IMAGE                            COMMAND             CREATED              STATUS                     PORTS               NAMES
-9e953cbfd0c7        ubuntu16.04_cnstream-v1.4.0:v1   "/bin/bash"         About a minute ago   Exited (0) 5 seconds ago                       ubuntu_cnstream-v1.4.0
-cam@cam-3630:/data/docker/cnstream/cnstream-docker-image$
+root@cam-3630:~# cd /root/CNStream/samples/demo/detection/mlu270/
+root@cam-3630:~/CNStream/samples/demo/detection/mlu270# ./run_yolov3_mlu270.sh
+--2020-12-15 14:24:42--  http://video.cambricon.com/models/MLU270/yolov3/yolov3_offline_u4_v1.3.0.cambricon
+Resolving video.cambricon.com (video.cambricon.com)... 182.92.212.157
+Connecting to video.cambricon.com (video.cambricon.com)|182.92.212.157|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 98652692 (94M) [text/plain]
+Saving to: 'yolov3_offline_u4_v1.3.0.cambricon'
+yolov3_offline_u4_v1.3.0.cambricon                 100%[================================================================================================================>]  94.08M  2.25MB/s    in 45s
+2020-12-15 14:25:28 (2.07 MB/s) - 'yolov3_offline_u4_v1.3.0.cambricon' saved [98652692/98652692]
+--2020-12-15 14:25:28--  http://video.cambricon.com/models/MLU270/yolov3/label_map_coco.txt
+......
+......
+......
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+===================================[ osd Performance ]==========================================
+[stream id] stream_0  -- [latency] avg:    4.3ms, min:    0.9ms, max:   33.6ms, [frame count]: 1784
+[stream id] stream_1  -- [latency] avg:    4.5ms, min:    0.7ms, max:   29.7ms, [frame count]: 1784
+--------------------------------------------------------
+Throughput over the last 2s
+Total :         -- [frame count]: 16, [processing time(s)]:   0.038891, [fps]:  411.5
+--------------------------------------------------------
+Average throughput over the process
+Total :         -- [frame count]: 3568, [processing time(s)]:   7.968857, [fps]:  447.8
+===================================[ Pipeline Performance ]=====================================
+End node of pipeline: rtsp_sink
+[stream id] stream_0  -- [latency] avg:  271.8ms, min:   84.1ms, max:  510.7ms, [frame count]: 1784
+[stream id] stream_1  -- [latency] avg:  271.1ms, min:   82.1ms, max:  527.8ms, [frame count]: 1784
+--------------------------------------------------------
+Throughput over the last 2s
+[stream id] stream_0  -- [frame count]: 9, [processing time(s)]:   0.246877, [fps]:   36.5
+[stream id] stream_1  -- [frame count]: 7, [processing time(s)]:   0.289882, [fps]:   24.2
+(* Note: Performance info of pipeline is slightly delayed compared to that of each stream.)
+Pipeline :      -- [frame count]: 17, [processing time(s)]:   0.289882, [fps]:   58.7
+--------------------------------------------------------
+Average throughput over the process
+[stream id] stream_0  -- [frame count]: 1784, [processing time(s)]:  59.782535, [fps]:   29.9
+[stream id] stream_1  -- [frame count]: 1784, [processing time(s)]:  59.804728, [fps]:   29.9
+(* Note: Performance info of pipeline is slightly delayed compared to that of each stream.)
+Pipeline :      -- [frame count]: 3568, [processing time(s)]:  59.813077, [fps]:   59.7
+
+Total : 59.700000
+CNSTREAM CORE I1215 14:26:30.512209 27883] [MyPipeline] Stop
+WARNING: Logging before InitCNStreamLogging() is written to STDERR
+CNSTREAM CORE I1215 14:26:30.512708 27887] [MyPipeline] stop updating stream message
+I1215 14:26:30.513303 27883 mlu_context.cpp:82] Cambricon runtime destroy
+root@cam-3630:~/CNStream/samples/demo/detection/mlu270#
 ```
