@@ -95,6 +95,8 @@ cam@cam-3630:/data/github/cnstream-docker-image$
 #        /root/CNStream/samples/demo/detection/mlu220/run_yolov3_mlu220.sh
 #配置文件：/root/CNStream/samples/demo/detection/mlu270/yolov3_mlu270_config.json
 #        /root/CNStream/samples/demo/detection/mlu220/yolov3_mlu220_config.json
+#推流地址：执行run_yolov3_mlu270.sh后，会把RTSP推流地址写入到本地文件RTSP_url_names.txt中。
+#        /root/CNStream/samples/demo/detection/mlu270/RTSP_url_names.txt
 ```
 
 推理结果摘选：
