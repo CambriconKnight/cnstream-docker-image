@@ -91,7 +91,7 @@ cam@cam-3630:/data/github/cnstream-docker-image$
 #软件环境：Docker（ubuntu16.04_cnstream-v1.5.0.tar.gz）
 #运行实例：基于CNStream的YOLOv3运行实例
 #业务流程：读取视频文件 --> MLU硬件解码 --> MLU硬件推理 --> 叠加OSD信息 --> RTSP推流输出
-#所用插件：DataSource；Inferencer；Osd；RtspSink
+#所用插件：DataSource; Inferencer; Osd; RtspSink
 #离线模型：http://video.cambricon.com/models/MLU270/yolov3/yolov3_offline_u4_v1.3.0.cambricon
 #启动脚本：/root/CNStream/samples/demo/detection/mlu270/run_yolov3_mlu270.sh
 #        /root/CNStream/samples/demo/detection/mlu220/run_yolov3_mlu220.sh
@@ -166,7 +166,7 @@ root@cam-3630:~/CNStream/samples/demo/detection/mlu270#
 #软件环境：Docker（ubuntu16.04_cnstream-v1.5.0.tar.gz）
 #运行实例：基于CNStream的SSD运行实例
 #业务流程：读取视频文件 --> MLU硬件解码 --> MLU硬件推理 --> 叠加OSD信息 --> 本地显示（带有GUI界面）
-#所用插件：DataSource；Inferencer；Osd；Displayer
+#所用插件：DataSource; Inferencer; Osd; Displayer
 #离线模型：http://video.cambricon.com/models/MLU270/Primary_Detector/ssd/resnet34_ssd.cambricon
 #启动脚本：/root/CNStream//samples/demo/run.sh
 #配置文件：/root/CNStream/samples/demo/detection_config.json
