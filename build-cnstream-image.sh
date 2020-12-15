@@ -8,10 +8,13 @@ set -e
 # (2) build image without neuware installed: docker build -f docker/Dockerfile.16.04 --build-arg with_neuware_installed=no -t ubuntu_cnstream:v1 .
 # 2. start container: docker run -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY --privileged -v /dev:/dev --net=host --ipc=host --pid=host -v $HOME/.Xauthority -it --name container_name  -v $PWD:/workspace ubuntu_cnstream:v1
 
+#Version
+VERSION="v1.5.0"
 PATH_CNSTREAM="cnstream"
-neuware_package_name="neuware-mlu270-1.4.0-1_Ubuntu16.04_amd64.deb"
-NAME_IMAGE="ubuntu16.04_cnstream-v1.4.0:v1"
-FILENAME_IMAGE="ubuntu16.04_cnstream-v1.4.0.tar"
+neuware_version=neuware-mlu270-1.5.0
+neuware_package_name="${neuware_version}-1_Ubuntu16.04_amd64.deb"
+NAME_IMAGE="ubuntu16.04_cnstream:$VERSION"
+FILENAME_IMAGE="ubuntu16.04_cnstream-$VERSION.tar.gz"
 
 none="\033[0m"
 green="\033[0;32m"
@@ -34,9 +37,9 @@ if [ -f "${neuware_package_name}" ];then
 else
     echo -e "${red}File(${neuware_package_name}): Not exist!${none}"
     echo -e "${yellow}Copy your neuware package(${neuware_package_name}) into the directory of CNStream!${none}"
-    echo -e "${yellow}eg:cp -v /data/ftp/v1.4.0/neuware/neuware-mlu270-1.4.0-1_Ubuntu16.04_amd64.deb ./${PATH_CNSTREAM}${none}"
+    echo -e "${yellow}eg:cp -v /data/ftp/$VERSION/neuware/${neuware_package_name} ./${PATH_CNSTREAM}${none}"
     #Manual copy
-    #cp -v /data/ftp/v1.4.0/neuware/neuware-mlu270-1.4.0-1_Ubuntu16.04_amd64.deb ./cnstream
+    #cp -v /data/ftp/v1.5.0/neuware/neuware-mlu270-1.5.0-1_Ubuntu16.04_amd64.deb ./cnstream
     exit -1
 fi
 

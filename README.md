@@ -8,13 +8,15 @@ Build docker images for [CNStream](https://github.com/Cambricon/CNStream).
 .
 ├── build-cnstream-image.sh
 ├── Dockerfile.16.04
-├── load-cnstream-image-v1.4.sh
+├── load-image-cnstream.sh
 ├── rm-all-docker-container.sh
-└── run-cnstream-container-v1.4.sh
+└── run-container-cnstream.sh
 ```
 
 ## Build ##
-
+```bash
+./build-cnstream-image.sh
+```
 ```bash
 cam@cam-3630:/data/docker/cnstream/cnstream-docker-image$ ./build-cnstream-image.sh
 Cloning into 'cnstream'...
