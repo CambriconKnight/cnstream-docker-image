@@ -88,7 +88,7 @@ cam@cam-3630:/data/github/cnstream-docker-image$
 ```bash
 #硬件平台：MLU270、MLU220-M.2
 #软件环境：Docker（ubuntu16.04_cnstream-v1.5.0.tar.gz）
-#运行实例：基于CNStream的YOLOv3测试Demo
+#运行实例：基于CNStream的YOLOv3运行实例
 #业务流程：读取视频文件 --> MLU硬件解码 --> MLU硬件推理 --> 叠加OSD信息 --> RTSP推流输出
 #离线模型：http://video.cambricon.com/models/MLU270/yolov3/yolov3_offline_u4_v1.3.0.cambricon
 #启动脚本：/root/CNStream/samples/demo/detection/mlu270/run_yolov3_mlu270.sh
