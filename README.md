@@ -108,6 +108,11 @@ cam@cam-3630:/data/github/cnstream-docker-image$
         <td ><center><img alt="yolov3.gif" src="./res/yolov3.gif" height="250" </center></td>
     </tr>
 </table>
+<table>
+    <tr>
+        <td ><center><img alt="yolo_mosaic_500.gif" src="./res/yolo_mosaic_500.gif" height="500" </center></td>
+    </tr>
+</table>
 
 ```bash
 root@cam-3630:~# cd /root/CNStream/samples/demo/detection/mlu270/
