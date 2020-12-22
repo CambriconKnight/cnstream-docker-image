@@ -34,10 +34,10 @@ cam@cam-3630:/data/github/cnstream-docker-image$
 
 # Build #
 ```bash
-./build-cnstream-image.sh
+sudo ./build-cnstream-image.sh
 ```
 ```bash
-cam@cam-3630:/data/github/cnstream-docker-image$ ./build-cnstream-image.sh
+cam@cam-3630:/data/github/cnstream-docker-image$ sudo ./build-cnstream-image.sh
 Cloning into 'cnstream'...
 remote: Enumerating objects: 1005, done.
 remote: Counting objects: 100% (1005/1005), done.
