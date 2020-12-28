@@ -82,6 +82,9 @@ while getopts "h:m:v:" opt; do
     esac
 done
 
+#Refresh global variables
+refresh_global_variables
+
 ##0.git clone
 if [ ! -d "$PATH_CNSTREAM" ];then
     git clone https://github.com/Cambricon/cnstream.git
