@@ -8,10 +8,52 @@ set -e
 # (2) build image without neuware installed: docker build -f docker/Dockerfile.16.04 --build-arg with_neuware_installed=no -t ubuntu_cnstream:v1 .
 # 2. start container: docker run -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY --privileged -v /dev:/dev --net=host --ipc=host --pid=host -v $HOME/.Xauthority -it --name container_name  -v $PWD:/workspace ubuntu_cnstream:v1
 
+#################### function ####################
+help_info() {
+    echo "
+Build docker images for CNStream.
+Usage:
+    $0 <command> [arguments]
+The commands are:
+    -h      Help info.
+    -m      MLU Platform.(mlu270, mlu220m.2)
+    -v      Neuware version.
+Examples:
+    $0 -h
+    $0 -m mlu270 -v 1.5.0
+    $0 -m mlu220m.2 -v 1.5.0
+Use '$0 -h' for more information about a command.
+    "
+}
+
+# Refresh global variables
+refresh_global_variables() {
+    MLU_Platform=`echo ${MLU} | tr '[a-z]' '[A-Z]'`
+    if [[ "${MLU_Platform}" == "MLU270" ]] || [[ "${MLU_Platform}" == "MLU220M.2" ]] ; then
+        MLU_Platform="MLU270"
+    else
+        help_info
+    fi
+    VERSION="v${VER}"
+    PATH_CNSTREAM="cnstream"
+    neuware_version="neuware-${MLU}-${VER}"
+    neuware_package_name="${neuware_version}-1_Ubuntu16.04_amd64.deb"
+    NAME_IMAGE="ubuntu16.04_cnstream:$VERSION"
+    FILENAME_IMAGE="ubuntu16.04_cnstream-$VERSION.tar.gz"
+}
+
+#################### main ####################
+#MLU Platform
+MLU="mlu270"
 #Version
-VERSION="v1.5.0"
+VER="1.5.0"
+
+#Global variables
+#UPPERCASE:mlu270--->MLU270
+MLU_Platform=`echo ${MLU} | tr '[a-z]' '[A-Z]'`
+VERSION="v${VER}"
 PATH_CNSTREAM="cnstream"
-neuware_version=neuware-mlu270-1.5.0
+neuware_version="neuware-${MLU}-${VER}"
 neuware_package_name="${neuware_version}-1_Ubuntu16.04_amd64.deb"
 NAME_IMAGE="ubuntu16.04_cnstream:$VERSION"
 FILENAME_IMAGE="ubuntu16.04_cnstream-$VERSION.tar.gz"
@@ -20,6 +62,25 @@ none="\033[0m"
 green="\033[0;32m"
 red="\033[0;31m"
 yellow="\033[1;33m"
+
+if [[ $# -eq 0 ]];then
+    help_info && exit 0
+fi
+
+# Get parameters
+while getopts "h:m:v:" opt; do
+    case $opt in
+    h) help_info  &&  exit 0
+        ;;
+    m) MLU="$OPTARG"
+        ;;
+    v) VER="$OPTARG"
+        ;;
+    \?)
+        help_info && exit 0
+        ;;
+    esac
+done
 
 ##0.git clone
 if [ ! -d "$PATH_CNSTREAM" ];then
@@ -45,7 +106,10 @@ fi
 
 #1.build image
 echo "====================== build image ======================"
-docker build -f ../Dockerfile.16.04 --build-arg neuware_package=${neuware_package_name} -t $NAME_IMAGE .
+docker build -f ../Dockerfile.16.04 \
+    --build-arg neuware_package=${neuware_package_name} \
+    --build-arg mlu_platform=${MLU_Platform} \
+    -t $NAME_IMAGE .
 #2.save image
 echo "====================== save image ======================"
 docker save -o $FILENAME_IMAGE $NAME_IMAGE
