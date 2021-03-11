@@ -2,7 +2,8 @@
 set -e
 
 #Version
-VERSION="v1.5.0"
+VER="1.6.106"
+VERSION="v${VER}"
 
 if [[ $# -eq 1 ]];then
     VERSION=$1

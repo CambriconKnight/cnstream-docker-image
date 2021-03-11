@@ -20,8 +20,8 @@ The commands are:
     -v      Neuware version.
 Examples:
     $0 -h
-    $0 -m mlu270 -v 1.5.0
-    $0 -m mlu220m.2 -v 1.5.0
+    $0 -m mlu270 -v iva-1.6.106
+    $0 -m mlu220m.2 -v iva-1.6.106
 Use '$0 -h' for more information about a command.
     "
 }
@@ -35,9 +35,8 @@ refresh_global_variables() {
         help_info
     fi
     VERSION="v${VER}"
-    PATH_CNSTREAM="cnstream"
     neuware_version="neuware-${MLU}-${VER}"
-    neuware_package_name="${neuware_version}-1_Ubuntu16.04_amd64.deb"
+    neuware_package_name="cntoolkit_1.4.110-1.ubuntu16.04_amd64.deb"
     NAME_IMAGE="ubuntu16.04_cnstream:$VERSION"
     FILENAME_IMAGE="ubuntu16.04_cnstream-$VERSION.tar.gz"
 }
@@ -46,15 +45,15 @@ refresh_global_variables() {
 #MLU Platform
 MLU="mlu270"
 #Version
-VER="1.5.0"
+VER="1.6.106"
 
 #Global variables
 #UPPERCASE:mlu270--->MLU270
 MLU_Platform=`echo ${MLU} | tr '[a-z]' '[A-Z]'`
 VERSION="v${VER}"
-PATH_CNSTREAM="cnstream"
+PATH_CNSTREAM="CNStream"
 neuware_version="neuware-${MLU}-${VER}"
-neuware_package_name="${neuware_version}-1_Ubuntu16.04_amd64.deb"
+neuware_package_name="cntoolkit_1.4.110-1.ubuntu16.04_amd64.deb"
 NAME_IMAGE="ubuntu16.04_cnstream:$VERSION"
 FILENAME_IMAGE="ubuntu16.04_cnstream-$VERSION.tar.gz"
 
@@ -63,9 +62,9 @@ green="\033[0;32m"
 red="\033[0;31m"
 yellow="\033[1;33m"
 
-if [[ $# -eq 0 ]];then
-    help_info && exit 0
-fi
+#if [[ $# -eq 0 ]];then
+#    help_info && exit 0
+#fi
 
 # Get parameters
 while getopts "h:m:v:" opt; do
@@ -87,13 +86,15 @@ refresh_global_variables
 
 ##0.git clone
 if [ ! -d "$PATH_CNSTREAM" ];then
-    git clone https://github.com/Cambricon/cnstream.git
+    #git clone https://github.com/Cambricon/CNStream.git
+    git clone https://gitee.com/SolutionSDK/CNStream.git
 else
     echo "Directory($PATH_CNSTREAM): Exists!"
 fi
 cd "${PATH_CNSTREAM}"
+git submodule  update  --init
 # del .git
-find . -name ".git" | xargs rm -Rf
+#find . -name ".git" | xargs rm -Rf
 
 ##copy your neuware package into the directory of CNStream
 if [ -f "${neuware_package_name}" ];then
@@ -101,21 +102,21 @@ if [ -f "${neuware_package_name}" ];then
 else
     echo -e "${red}File(${neuware_package_name}): Not exist!${none}"
     echo -e "${yellow}Copy your neuware package(${neuware_package_name}) into the directory of CNStream!${none}"
-    echo -e "${yellow}eg:cp -v /data/ftp/$VERSION/neuware/${neuware_package_name} ./${PATH_CNSTREAM}${none}"
+    echo -e "${yellow}eg:cp -v /data/ftp/iva-1.6.106/cntoolkit/ubuntu16.04/${neuware_package_name} ./${PATH_CNSTREAM}${none}"
     #Manual copy
-    #cp -v /data/ftp/v1.5.0/neuware/neuware-mlu270-1.5.0-1_Ubuntu16.04_amd64.deb ./cnstream
+    #cp -v /data/ftp/iva-1.6.106/cntoolkit/ubuntu16.04/cntoolkit_1.4.110-1.ubuntu16.04_amd64.deb ./cnstream
     exit -1
 fi
 
 #1.build image
 echo "====================== build image ======================"
-docker build -f ../Dockerfile.16.04 \
+sudo docker build -f ../Dockerfile.16.04 \
     --build-arg neuware_package=${neuware_package_name} \
     --build-arg mlu_platform=${MLU_Platform} \
     -t $NAME_IMAGE .
 #2.save image
 echo "====================== save image ======================"
-docker save -o $FILENAME_IMAGE $NAME_IMAGE
+sudo docker save -o $FILENAME_IMAGE $NAME_IMAGE
 mv $FILENAME_IMAGE ../
 cd ../
 ls -la $FILENAME_IMAGE

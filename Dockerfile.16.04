@@ -65,8 +65,8 @@ COPY . /root/CNStream/
 
 RUN if [ "$with_neuware_installed" = "yes" ]; then dpkg -i /root/CNStream/$neuware_package && \
     apt -o Accquire::AllowInsecureRepositories=true update && \
-    apt install -y cndev cndrv cnrt cncodec cnml cnplugin && \
-	mkdir build && cd build && cmake .. -DMLU=$mlu_platform && make && \
+    apt install -y cndev cndrv cnrt cncodec && \
+    mkdir build && cd build && cmake .. -DMLU=$mlu_platform && make && \
     rm -rf /root/CNStream/$neuware_package; fi
 
 WORKDIR /root/CNStream/samples/demo
