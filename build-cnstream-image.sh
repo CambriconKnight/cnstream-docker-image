@@ -20,8 +20,8 @@ The commands are:
     -v      Neuware version.
 Examples:
     $0 -h
-    $0 -m mlu270 -v iva-1.6.106
-    $0 -m mlu220m.2 -v iva-1.6.106
+    $0 -m mlu270 -v 1.6.602
+    $0 -m mlu220m.2 -v 1.6.602
 Use '$0 -h' for more information about a command.
     "
 }
@@ -36,7 +36,7 @@ refresh_global_variables() {
     fi
     VERSION="v${VER}"
     neuware_version="neuware-${MLU}-${VER}"
-    neuware_package_name="cntoolkit_1.4.110-1.ubuntu16.04_amd64.deb"
+    neuware_package_name="cntoolkit_1.7.2-1.ubuntu16.04_amd64.deb"
     NAME_IMAGE="ubuntu16.04_cnstream:$VERSION"
     FILENAME_IMAGE="ubuntu16.04_cnstream-$VERSION.tar.gz"
 }
@@ -45,7 +45,7 @@ refresh_global_variables() {
 #MLU Platform
 MLU="mlu270"
 #Version
-VER="1.6.106"
+VER="1.6.602"
 
 #Global variables
 #UPPERCASE:mlu270--->MLU270
@@ -53,7 +53,7 @@ MLU_Platform=`echo ${MLU} | tr '[a-z]' '[A-Z]'`
 VERSION="v${VER}"
 PATH_CNSTREAM="CNStream"
 neuware_version="neuware-${MLU}-${VER}"
-neuware_package_name="cntoolkit_1.4.110-1.ubuntu16.04_amd64.deb"
+neuware_package_name="cntoolkit_1.7.2-1.ubuntu16.04_amd64.deb"
 NAME_IMAGE="ubuntu16.04_cnstream:$VERSION"
 FILENAME_IMAGE="ubuntu16.04_cnstream-$VERSION.tar.gz"
 
@@ -82,7 +82,7 @@ while getopts "h:m:v:" opt; do
 done
 
 #Refresh global variables
-refresh_global_variables
+#refresh_global_variables
 
 ##0.git clone
 if [ ! -d "$PATH_CNSTREAM" ];then
@@ -102,7 +102,7 @@ if [ -f "${neuware_package_name}" ];then
 else
     echo -e "${red}File(${neuware_package_name}): Not exist!${none}"
     echo -e "${yellow}Copy your neuware package(${neuware_package_name}) into the directory of CNStream!${none}"
-    echo -e "${yellow}eg:cp -v /data/ftp/iva-1.6.106/cntoolkit/ubuntu16.04/${neuware_package_name} ./${PATH_CNSTREAM}${none}"
+    echo -e "${yellow}eg:cp -v /data/ftp/1.6.602/cntoolkit/ubuntu16.04/${neuware_package_name} ./${PATH_CNSTREAM}${none}"
     #Manual copy
     #cp -v /data/ftp/iva-1.6.106/cntoolkit/ubuntu16.04/cntoolkit_1.4.110-1.ubuntu16.04_amd64.deb ./cnstream
     exit -1
