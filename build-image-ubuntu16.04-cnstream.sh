@@ -46,8 +46,6 @@ source "./env.sh"
 
 #MLU Platform
 MLU="mlu270"
-#neuware or cntoolkit
-neuware_package_name="cntoolkit_1.7.2-1.ubuntu16.04_amd64.deb"
 
 # Get parameters
 while getopts "h:m:" opt; do
@@ -86,9 +84,9 @@ else
     echo -e "${yellow}1.Please download ${neuware_package_name} from FTP(ftp://download.cambricon.com:8821/***)!${none}"
     echo -e "${yellow}  For further information, please contact us.${none}"
     echo -e "${yellow}2.Copy the dependent packages(${neuware_package_name}) into the directory!${none}"
-    echo -e "${yellow}  eg:cp -v /data/ftp/mlu270/$VER/cntoolkit/X86_64/ubuntu16.04/${neuware_package_name} ./${PATH_WORK}${none}"
+    echo -e "${yellow}  eg:cp -v /data/ftp/product/GJD/MLU270/$VER/Ubuntu16.04/CNToolkit/${neuware_package_name} ./${PATH_WORK}${none}"
     #Manual copy
-    #cp -v /data/ftp/mlu270/1.6.602/cntoolkit/X86_64/ubuntu16.04/cntoolkit_1.4.110-1.ubuntu16.04_amd64.deb ./ffmpeg-mlu
+    #cp -v /data/ftp/product/GJD/MLU270/1.7.602/Ubuntu16.04/CNToolkit/cntoolkit_1.7.5-1.ubuntu16.04_amd64.deb ./cnstream
     exit -1
 fi
 

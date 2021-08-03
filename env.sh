@@ -1,12 +1,19 @@
 # -------------------------------------------------------------------------------
 # Filename:    env.sh
 # Revision:    1.0.0
-# Date:        2021/02/23
+# Date:        2021/08/03
 # Description: Common Environment variable
 # Example:
 # Depends:
 # Notes:
 # -------------------------------------------------------------------------------
+#################### version ####################
+## 以下信息,根据各个版本中文件实际名词填写.
+#Version
+VER="1.7.602"
+#Neuware SDK For MLU270(依操作系统选择)
+neuware_package_name="cntoolkit_1.7.5-1.ubuntu16.04_amd64.deb"
+#################### docker ####################
 #Work
 PATH_WORK="cnstream"
 #Dockerfile(16.04/18.04/CentOS)
@@ -15,8 +22,7 @@ TYPE_DOCKERFILE="16.04"
 FILENAME_DOCKERFILE="Dockerfile.$TYPE_DOCKERFILE"
 DIR_DOCKER="docker"
 #Version
-VER="1.6.602"
-VERSION="v1.6.602"
+VERSION="v${VER}"
 #VERSION="v${VER}"
 #VERSION="iva-1.6.106"
 #Organization
@@ -32,7 +38,7 @@ FILENAME_IMAGE="image-$OS-$PATH_WORK-$VERSION.tar.gz"
 FULLNAME_IMAGE="./${FILENAME_IMAGE}"
 #Docker container name(container-ubuntu16.04-caffe-v1.6.0)
 MY_CONTAINER="container-$OS-$PATH_WORK-$VERSION"
-
+#################### color ####################
 #Font color
 none="\033[0m"
 black="\033[0;30m"

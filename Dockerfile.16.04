@@ -52,11 +52,12 @@ RUN echo deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main restricted 
     apt-get clean && apt-get update --fix-missing && \
     apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends \
             curl git wget vim build-essential cmake make \
-            libopencv-dev \
+            libopencv-dev libcurl4-openssl-dev \
             libgoogle-glog-dev \
-            openssh-server \
-            libsdl2-dev  \
+            openssh-server librdkafka-dev\
+            libsdl2-dev  \ 
             lcov  \
+            ca-certificates \
             net-tools && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
