@@ -65,8 +65,8 @@ refresh_global_variables
 
 ##0.git clone
 if [ ! -d "${PATH_WORK}" ];then
-    git clone https://github.com/Cambricon/cnstream.git
-    #git clone https://gitee.com/SolutionSDK/CNStream.git
+    #git clone https://github.com/Cambricon/CNStream.git
+    git clone https://gitee.com/SolutionSDK/CNStream.git
     mv CNStream ${PATH_WORK}
 else
     echo "Directory($PATH_WORK): Exists!"

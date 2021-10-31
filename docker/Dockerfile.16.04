@@ -48,4 +48,5 @@ COPY ./docker/build_cnstream.sh /root/cnstream/
 RUN bash ./build_cnstream.sh
 
 # 6.Set WorkDir
-WORKDIR /root/cnstream/
+ENV CNSTREAM_DIR /root/cnstream
+WORKDIR /root/cnstream
