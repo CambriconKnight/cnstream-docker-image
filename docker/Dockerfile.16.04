@@ -1,0 +1,51 @@
+# -------------------------------------------------------------------------------
+# Filename:     Dockerfile
+# UpdateDate:   2021/10/30
+# Description:  Build docker images for cnstream.
+# Example:
+# Depends:      Based on Ubuntu:16.04
+# Notes:
+# -------------------------------------------------------------------------------
+# 0.Start FROM ubuntu:16.04 image
+FROM ubuntu:16.04
+
+MAINTAINER kang <ksp416@163.com>
+
+ARG neuware_package=cntoolkit_1.7.5-1.ubuntu16.04_amd64.deb
+ARG mlu_platform=MLU270
+ARG with_neuware_installed=yes
+
+# 1.Sync files
+RUN echo -e 'nameserver 114.114.114.114' > /etc/resolv.conf
+COPY ./docker/* /temp/
+WORKDIR /temp/
+RUN cp sources_16.04.list /etc/apt/sources.list
+
+# 2.Pre-installed software
+ENV DEBIAN_FRONTEND=noninteractive
+RUN bash ./pre_packages.sh
+
+# 3.Set ENV && Clean
+ENV LANG C.UTF-8
+ENV TIME_ZONE Asia/Shanghai
+RUN echo "${TIME_ZONE}" > /etc/timezone && \
+    ln -sf /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime && \
+    rm -rf /temp/ && rm -rf /var/lib/apt/lists/* && \
+    apt-get clean
+
+# 4.Sync files for cnstream
+WORKDIR /root/cnstream/
+#COPY . /root/cnstream/
+COPY ./cnstream /root/cnstream/
+
+RUN if [ "$with_neuware_installed" = "yes" ]; then dpkg -i /root/cnstream/$neuware_package \
+    && apt -o Accquire::AllowInsecureRepositories=true update \
+    && apt install -y cndev cndrv cnrt cncodec \
+    && rm -rf /root/CNStream/$neuware_package; fi
+
+# 5.Pre-installed software
+COPY ./docker/build_cnstream.sh /root/cnstream/
+RUN bash ./build_cnstream.sh
+
+# 6.Set WorkDir
+WORKDIR /root/cnstream/

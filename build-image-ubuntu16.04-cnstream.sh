@@ -65,16 +65,16 @@ refresh_global_variables
 
 ##0.git clone
 if [ ! -d "${PATH_WORK}" ];then
-    #git clone https://github.com/Cambricon/cnstream.git
-    git clone https://gitee.com/SolutionSDK/CNStream.git
+    git clone https://github.com/Cambricon/cnstream.git
+    #git clone https://gitee.com/SolutionSDK/CNStream.git
     mv CNStream ${PATH_WORK}
 else
     echo "Directory($PATH_WORK): Exists!"
 fi
 cd "${PATH_WORK}"
-git submodule  update  --init
+git submodule update --init
 # del .git
-#find . -name ".git" | xargs rm -Rf
+find . -name ".git" | xargs rm -Rf
 
 ##copy the dependent packages into the directory of $PATH_WORK
 if [ -f "${neuware_package_name}" ];then
@@ -89,16 +89,15 @@ else
     #cp -v /data/ftp/product/GJD/MLU270/1.7.602/Ubuntu16.04/CNToolkit/cntoolkit_1.7.5-1.ubuntu16.04_amd64.deb ./cnstream
     exit -1
 fi
-
+cd ../
 #1.build image
 echo "====================== build image ======================"
-sudo docker build -f ../$FILENAME_DOCKERFILE \
+sudo docker build -f ./docker/$FILENAME_DOCKERFILE \
     --build-arg neuware_package=${neuware_package_name} \
     --build-arg mlu_platform=${MLU_Platform} \
     -t $NAME_IMAGE .
 #2.save image
 echo "====================== save image ======================"
 sudo docker save -o $FILENAME_IMAGE $NAME_IMAGE
-mv $FILENAME_IMAGE ../
-cd ../
-ls -la $FILENAME_IMAGE
+mv $FILENAME_IMAGE ./docker/
+ls -lh ./docker/$FILENAME_IMAGE
