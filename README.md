@@ -45,7 +45,7 @@ CNStream 开发样例主要包括 .json 文件和 .sh 文件，其中 .json 文�
 ```bash
 #硬件平台：MLU270、MLU220
 #软件环境：Docker（image-ubuntu16.04-cnstream-v1.7.602.tar.gz）
-#环境变量:${CNSTREAM_DIR}=${CNSTREAM_DIR},此环境变量在docker镜像中已设置,可直接使用
+#环境变量：${CNSTREAM_DIR}=/root/cnstream , 此环境变量在docker镜像中已设置,可直接使用
 #运行实例：基于CNStream的YOLOv3运行实例
 #业务流程：读取视频文件 --> MLU硬件解码 --> MLU硬件推理 --> 叠加OSD信息 --> RTSP推流输出
 #所用插件：DataSource; Inferencer; Osd; RtspSink
@@ -54,8 +54,8 @@ CNStream 开发样例主要包括 .json 文件和 .sh 文件，其中 .json 文�
 #启动脚本：${CNSTREAM_DIR}/samples/cns_launcher/object_detection/run.sh
 #        Usages: run.sh [mlu220/mlu270] [encode_jpeg/encode_video/display/rtsp/kafka]
 #配置文件：${CNSTREAM_DIR}/samples/cns_launcher/object_detection/config_template.json
-#后处理代码:${CNSTREAM_DIR}/samples/common/postprocess/postprocess_yolov3.cpp
-#启动命令: cd ${CNSTREAM_DIR}/samples/cns_launcher/object_detection && ./run.sh mlu270 rtsp
+#后处理代码：${CNSTREAM_DIR}/samples/common/postprocess/postprocess_yolov3.cpp
+#启动命令：cd ${CNSTREAM_DIR}/samples/cns_launcher/object_detection && ./run.sh mlu270 rtsp
 #结果演示：执行启动命令后，脚本会自动下载检测模型, 之后按照 json 配置文件启动业务处理流程.
 #        最后把检测后的结果通过 RTSP 服务模块推送出去.
 ```
