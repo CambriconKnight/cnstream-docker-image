@@ -1,11 +1,11 @@
 #/bin/bash
 set -e
 # -------------------------------------------------------------------------------
-# Filename:     save-image-ubuntu16.04-cnstream.sh
+# Filename:     save-image-cnstream.sh
 # UpdateDate:   2021/07/26
 # Description:  1. commit: 提交容器到镜像，实现容器持久化；
 #               2. save: 导出镜像文件，实现镜像内容持久化。
-# Example:      ./save-image-ubuntu16.04-cnstream.sh
+# Example:      ./save-image-cnstream.sh
 # Depends:
 # Notes:
 # -------------------------------------------------------------------------------

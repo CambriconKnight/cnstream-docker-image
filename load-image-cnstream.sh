@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 # -------------------------------------------------------------------------------
-# Filename:     load-image-ubuntu16.04-cnstream.sh
+# Filename:     load-image-cnstream.sh
 # UpdateDate:   2021/02/23
 # Description:  Loading docker image for cnstream.
-# Example:      ./load-image-ubuntu16.04-cnstream.sh
+# Example:      ./load-image-cnstream.sh
 # Depends:      image-$OS-$PATH_WORK-$VERSION.tar.gz
 # Notes:
 # -------------------------------------------------------------------------------

@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 # -------------------------------------------------------------------------------
-# Filename:     run-container-ubuntu16.04-cnstream.sh
+# Filename:     run-container-cnstream.sh
 # UpdateDate:   2021/02/23
 # Description:  Run docker image for cnstream.
-# Example:      ./run-container-ubuntu16.04-cnstream.sh
+# Example:      ./run-container-cnstream.sh
 # Depends:      container-$OS-$PATH_WORK-$VERSION
 # Notes:
 # -------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ if [ 0 -eq $num ];then
     #sudo xhost +
     sudo docker run -e DISPLAY=unix$DISPLAY --privileged=true \
         --device /dev/cambricon_dev0 \
-        --net=host --pid=host \
+        --net=host --ipc=host --pid=host \
         -v /sys/kernel/debug:/sys/kernel/debug \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
         -it -v $PATH_SHARE_HOST:$PATH_SHARE_DOCKER \
